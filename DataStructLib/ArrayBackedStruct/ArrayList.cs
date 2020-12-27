@@ -3,7 +3,7 @@ using System;
 
 namespace DataStructLib.ArrayBackedStruct {
     //TODO handle array overflow
-    public class ArrayList: ArrayBackedStructBase, ListInterface {
+    public class ArrayList: ArrayBackedBase, ListInterface {
 
         public ArrayList() {
             _items = new Object[_defaultCap];

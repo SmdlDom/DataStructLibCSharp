@@ -1,18 +1,18 @@
 ﻿using System;
 
 namespace DataStructLib.ArrayBackedStruct {
-    public abstract class ArrayBackedStructBase {
+     public abstract class ArrayBackedBase {
         protected Object[] _items;
         protected int _size;
 
         protected const int _defaultCap = 8;
 
-        //Resize the backing array
+        //Property to obtain and modify the capacity of this array backed structure
         public int Cap {
             get {
                 return _items.Length;
             }
-            set {
+            set { //Resize the backing array
                 if (value < _size) {
                     throw new ArgumentOutOfRangeException("value", "Can't resize the backing array to a size that can't fit all the currently hold data");
                 }
@@ -39,7 +39,7 @@ namespace DataStructLib.ArrayBackedStruct {
         }
 
         //Clears the contents of ArrayList
-        protected void Clear() {
+        public void Clear() {
             if (_size > 0) {
                 Array.Clear(_items, 0, _size);
                 _size = 0;
@@ -64,7 +64,7 @@ namespace DataStructLib.ArrayBackedStruct {
         }
 
         //Convert this ArrayBacked Structure to an array
-        protected Object[] ToArray() {
+        protected virtual Object[] ToArray() {
             Object[] copy = new object[_size];
             for (int i = 0; i < _size; i++) {
                 copy[i] = _items[i];
@@ -78,7 +78,7 @@ namespace DataStructLib.ArrayBackedStruct {
         }
 
         //Trim the backing array capacity to fit exactly the size of the structure
-        protected void TrimToSize() {
+        public void TrimToSize() {
             Cap = _size;
         }
     }

@@ -42,6 +42,10 @@ namespace DataStructLib.ArrayBackedStruct.Tests {
             Assert.AreEqual(true, arrayList.Contains(8));
             arrayList[1] = 12;
             Assert.AreEqual(12, arrayList[1]);
+            arrayList.TrimToSize();
+            Assert.AreEqual(3, arrayList.Cap);
+            arrayList.Clear();
+            Assert.AreEqual("{}", arrayList.ToString());
         }
    } 
 }
