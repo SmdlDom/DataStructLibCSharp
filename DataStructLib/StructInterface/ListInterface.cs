@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace DataStructLib.StructInterface {
-    public interface ListInterface {
+    interface ListInterface {
         //Adds the given item object to the end of this list, adjusting the capacity of the list if needed.
         void Append(Object item);
 

@@ -8,7 +8,7 @@ namespace DataStructLib.ArrayBackedStruct {
         protected const int _defaultCap = 8;
 
         //Property to obtain and modify the capacity of this array backed structure
-        public int Cap {
+        public virtual int Cap {
             get {
                 return _items.Length;
             }
@@ -18,20 +18,22 @@ namespace DataStructLib.ArrayBackedStruct {
                 }
 
                 if (value != _items.Length) {
-                    if (value > 0) {
-                        Object[] newItems = new object[value];
-                        if (_size > 0) {
-                            Array.Copy(_items, 0, newItems, 0, _size);
-                        }
-                        _items = newItems;
+                    Object[] newItems;
+                    if (value > _defaultCap) {
+                        newItems = new Object[value];   
                     } else {
-                        _items = new Object[_defaultCap];
+                        newItems =  new Object[_defaultCap];
                     }
+                    
+                    for (int i = 0; i < _size; i++) {
+                        newItems[i] = _items[i];
+                    }
+                    _items = newItems;
                 }
             }
         }
 
-        //Read-only property describing the number of element in this ArrayList
+        //Read-only property describing the number of element in this structure
         public int Size {
             get {
                 return _size;
@@ -56,15 +58,21 @@ namespace DataStructLib.ArrayBackedStruct {
             }
         }
 
+        //Check if this array backed structure is empty
+        public bool IsEmpty() {
+            if (_size == 0) return true;
+            return false;
+        }
+
         //Halve the capacity of this list if it's size is smaller then a forth of the current capacity
-        protected void ReduceCap() {
-            if (_size < _items.Length / 4) {
+        protected virtual void ReduceCap() {
+            if (_items.Length != _defaultCap && _size < _items.Length / 4) {
                 Cap = _items.Length / 4 < _defaultCap ? _defaultCap : _items.Length / 2;
             }
         }
 
         //Convert this ArrayBacked Structure to an array
-        protected virtual Object[] ToArray() {
+        public virtual Object[] ToArray() {
             Object[] copy = new object[_size];
             for (int i = 0; i < _size; i++) {
                 copy[i] = _items[i];
@@ -77,9 +85,20 @@ namespace DataStructLib.ArrayBackedStruct {
             return String.Concat("{", String.Concat(String.Join(", ", ToArray()), "}"));
         }
 
+        //Return a string representation of the internal array
+        public string ToStringInternalRep() {
+            return String.Concat("{", String.Concat(String.Join(", ", _items), "}"));
+        }
+
         //Trim the backing array capacity to fit exactly the size of the structure
         public void TrimToSize() {
-            Cap = _size;
+            Object[] newItems = new object[_size];
+
+            for (int i = 0; i < _size; i++) {
+                newItems[i] = _items[i];
+            }
+
+            _items = newItems;
         }
     }
 }

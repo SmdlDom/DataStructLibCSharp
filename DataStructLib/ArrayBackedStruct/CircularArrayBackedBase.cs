@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DataStructLib.ArrayBackedStruct {
     public abstract class CircularArrayBackedBase : ArrayBackedBase {
@@ -14,14 +12,41 @@ namespace DataStructLib.ArrayBackedStruct {
             }
         }
 
+        public sealed override int Cap {
+            get {
+                return _items.Length;
+            }
+            set {  //resize the backing array reseting the pointer at 0
+                if (value < _size) {
+                    throw new ArgumentOutOfRangeException("value", "Can't resize the backing array to a size that can't fit all the currently hold data");
+                }
+
+                if (value != _items.Length) {
+                    Object[] newItems;
+                    if (value > _defaultCap) {
+                        newItems = new Object[value];
+                    } else {
+                        newItems = new Object[_defaultCap];
+                    }
+
+                    for (int i = _ptr; i < _size + _ptr; i++) {
+                        newItems[i - _ptr] = _items[i % _items.Length];
+                    }
+                    _ptr = 0;
+                    _items = newItems;
+                }
+            }
+        }
         //Convert this circular array backed data structure to an array
-        protected sealed override Object[] ToArray() {
+        public sealed override Object[] ToArray() {
             Object[] copy = new Object[_size];
             for (int i = _ptr; i < _ptr + _size; i++) {
-                copy[i - _ptr] = _items[i];
+                copy[i - _ptr] = _items[i % _items.Length];
             }
             return copy;
         }
+
+
 
     }
 }

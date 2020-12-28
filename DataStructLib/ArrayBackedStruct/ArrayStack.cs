@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DataStructLib.ArrayBackedStruct {
     public class ArrayStack : ArrayBackedBase {
@@ -27,6 +25,11 @@ namespace DataStructLib.ArrayBackedStruct {
         //Pop the item on top of the stack
         public Object Pop() {
             return _items[--_size];
+        }
+
+        //Peek at the item on top of the stack without popping it
+        public Object Peek() {
+            return _items[_size - 1];
         }
     }
 }

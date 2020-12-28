@@ -1,6 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Diagnostics;
 
 namespace DataStructLib.ArrayBackedStruct.Tests {
     [TestClass]
@@ -44,6 +42,12 @@ namespace DataStructLib.ArrayBackedStruct.Tests {
             Assert.AreEqual(12, arrayList[1]);
             arrayList.TrimToSize();
             Assert.AreEqual(3, arrayList.Cap);
+            arrayList.Insert(0, 1);
+            Assert.AreEqual(8, arrayList.Cap);
+            arrayList.RemoveAtIndex(0);
+            arrayList.RemoveAtIndex(0);
+            arrayList.RemoveAtIndex(0);
+            Assert.AreEqual(8, arrayList.Cap);
             arrayList.Clear();
             Assert.AreEqual("{}", arrayList.ToString());
         }

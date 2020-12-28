@@ -1,8 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using DataStructLib.ArrayBackedStruct;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DataStructLib.ArrayBackedStruct.Tests {
     [TestClass()]
@@ -22,6 +18,9 @@ namespace DataStructLib.ArrayBackedStruct.Tests {
             arrayStack.Push(7);
             Assert.AreEqual("{0, 1, 2, 3, 4, 5, 6, 7}", arrayStack.ToString());
             Assert.AreEqual(7, arrayStack.Pop());
+            Assert.AreEqual(6, arrayStack.Peek());
+            Assert.AreEqual("{0, 1, 2, 3, 4, 5, 6}", arrayStack.ToString());
+
         }
     }
 }
