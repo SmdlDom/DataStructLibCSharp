@@ -70,7 +70,7 @@ namespace DataStructLib.ArrayBackedStruct {
 
         //Insert an item into this list at a given index.
         public void Insert(Object item, int index) {
-            if (index < 0 || index > _size) throw new ArgumentOutOfRangeException("index", ToString());
+            if (index < 0 || index > _size) throw new ArgumentOutOfRangeException("index", "the index is out of range");
             if(index == _size) {
                 Append(item);
                 return;
@@ -111,16 +111,19 @@ namespace DataStructLib.ArrayBackedStruct {
 
         //Remove the first occurrence of item from the list, if it's contains.
         public void Remove(Object item) {
-            RemoveRange(IndexOf(item), 1);
+            RemoveSection(IndexOf(item), 1);
         }
 
         //Remove the item at the given index.
         public void RemoveAtIndex(int index) {
-            RemoveRange(index, 1);
+            RemoveSection(index, 1);
         }
 
         //Remove the items trough the specified range.
-        public void RemoveRange(int start, int count) {
+        public void RemoveSection(int start, int count) {
+            if (start < 0 || start >= _size) throw new ArgumentOutOfRangeException("start", "The start index is out of range");
+            if (count < 0 || count > _size - start) throw new ArgumentOutOfRangeException("count", "The count is out of range");
+
             for (int i = start; i < _size - count; i++) {
                 _items[i] = _items[i + count];
             }
@@ -130,11 +133,11 @@ namespace DataStructLib.ArrayBackedStruct {
 
         //Reverse the list.
         public void Reverse() {
-            ReverseRange(0, _size);
+            ReverseSection(0, _size);
         }
 
         //Reverse the items of the list trough the given range.
-        public void ReverseRange(int start, int count) {
+        public void ReverseSection(int start, int count) {
             if (start < 0 || start >= _size) throw new ArgumentOutOfRangeException("start", "The start index is out of range");
             if (count < 0 || count > _size + start) throw new ArgumentOutOfRangeException("count", "The count is out of range");
 

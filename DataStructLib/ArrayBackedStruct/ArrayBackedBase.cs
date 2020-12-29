@@ -40,7 +40,7 @@ namespace DataStructLib.ArrayBackedStruct {
             }
         }
 
-        //Clears the contents of ArrayList
+        //Clears the contents of this structure
         public void Clear() {
             if (_size > 0) {
                 Array.Clear(_items, 0, _size);
@@ -72,8 +72,8 @@ namespace DataStructLib.ArrayBackedStruct {
         }
 
         //Convert this ArrayBacked Structure to an array
-        public virtual Object[] ToArray() {
-            Object[] copy = new object[_size];
+        protected virtual Object[] ToArray() {
+            Object[] copy = new Object[_size];
             for (int i = 0; i < _size; i++) {
                 copy[i] = _items[i];
             }

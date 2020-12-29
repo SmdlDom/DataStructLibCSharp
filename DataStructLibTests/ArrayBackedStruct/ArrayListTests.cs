@@ -29,12 +29,12 @@ namespace DataStructLib.ArrayBackedStruct.Tests {
             Assert.AreEqual(-1, arrayList.LastIndexOf(6, 1, 1));
             arrayList.Reverse();
             Assert.AreEqual("{6, 1, 6, 2, 6, 4, 6, 8, 6}", arrayList.ToString());
-            arrayList.ReverseRange(2, 4);
+            arrayList.ReverseSection(2, 4);
             Assert.AreEqual("{6, 1, 4, 6, 2, 6, 6, 8, 6}", arrayList.ToString());
             arrayList.Remove(6);
             arrayList.RemoveAtIndex(0);
             Assert.AreEqual("{4, 6, 2, 6, 6, 8, 6}", arrayList.ToString());
-            arrayList.RemoveRange(1, 4);
+            arrayList.RemoveSection(1, 4);
             Assert.AreEqual("{4, 8, 6}", arrayList.ToString());
             Assert.AreEqual(8, arrayList.Cap);
             Assert.AreEqual(true, arrayList.Contains(8));

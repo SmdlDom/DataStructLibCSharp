@@ -9,6 +9,6 @@ namespace DataStructLib.StructInterface {
         Object Pop();
 
         //Peek at the item on top of the stack without popping it
-        Object Peek();
+        Object Peak();
     }
 }

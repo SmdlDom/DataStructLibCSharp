@@ -28,7 +28,7 @@ namespace DataStructLib.ArrayBackedStruct {
         }
 
         //Peek at the item on top of the stack without popping it
-        public Object Peek() {
+        public Object Peak() {
             return _items[_size - 1];
         }
     }

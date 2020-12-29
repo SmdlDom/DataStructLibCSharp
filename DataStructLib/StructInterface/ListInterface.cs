@@ -40,13 +40,13 @@ namespace DataStructLib.StructInterface {
         void RemoveAtIndex(int index);
 
         //Remove the items trough the specified range.
-        void RemoveRange(int start, int count);
+        void RemoveSection(int start, int count);
 
         //Reverse the list.
         void Reverse();
 
         //Reverse the items of the list trough the given range.
-        void ReverseRange(int start, int count);
+        void ReverseSection(int start, int count);
 
         //TODO implement a sorting algorithm
     }
