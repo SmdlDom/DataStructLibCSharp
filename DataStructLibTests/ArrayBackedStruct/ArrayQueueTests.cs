@@ -1,44 +1,44 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using DataStructLib.ArrayBackedStruct;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace DataStructLib.ArrayBackedStruct.Tests {
     [TestClass()]
     public class ArrayQueueTests {
 
-        private ArrayQueue arrayQueue = new ArrayQueue();
-     
+        private ArrayQueue queue = new ArrayQueue();
+
         [TestMethod()]
-        public void ArrayQueueTest() {
-            arrayQueue.Enqueue(0);
-            arrayQueue.Enqueue(1);
-            arrayQueue.Enqueue(2);
-            Assert.AreEqual("{0, 1, 2}", arrayQueue.ToString());
-            Assert.AreEqual(3, arrayQueue.Size);
-            Assert.AreEqual(0, arrayQueue.Peak());
-            Assert.AreEqual(0, arrayQueue.Dequeue());
-            Assert.AreEqual("{1, 2}", arrayQueue.ToString());
-            Assert.AreEqual("{0, 1, 2, , , , , }", arrayQueue.ToStringInternalRep());
-            Assert.AreEqual(1, arrayQueue.Dequeue());
-            Assert.AreEqual(2, arrayQueue.Dequeue());
-            Assert.AreEqual(0, arrayQueue.Size);
-            Assert.AreEqual(3, arrayQueue.Pointer);
-            Assert.AreEqual("{}", arrayQueue.ToString());
-            arrayQueue.Enqueue(0);
-            arrayQueue.Enqueue(1);
-            arrayQueue.Enqueue(2);
-            arrayQueue.Enqueue(0);
-            arrayQueue.Enqueue(1);
-            Assert.AreEqual("{0, 1, 2, 0, 1, 2, 0, 1}", arrayQueue.ToStringInternalRep());
-            Assert.AreEqual("{0, 1, 2, 0, 1}", arrayQueue.ToString());
-            arrayQueue.Enqueue(2);
-            Assert.AreEqual("{2, 1, 2, 0, 1, 2, 0, 1}", arrayQueue.ToStringInternalRep());
-            Assert.AreEqual("{0, 1, 2, 0, 1, 2}", arrayQueue.ToString());
-            arrayQueue.Enqueue(0);
-            arrayQueue.Enqueue(1);
-            Assert.AreEqual("{0, 1, 2, 0, 1, 2, 0, 1}", arrayQueue.ToString());
-            Assert.AreEqual("{2, 0, 1, 0, 1, 2, 0, 1}", arrayQueue.ToStringInternalRep());
-            arrayQueue.Enqueue(2); 
-            Assert.AreEqual("{0, 1, 2, 0, 1, 2, 0, 1, 2}", arrayQueue.ToString());
-            Assert.AreEqual("{0, 1, 2, 0, 1, 2, 0, 1, 2, , , , , , , }", arrayQueue.ToStringInternalRep());
+        public void EnqueueTest() {
+            for (int i = 0; i < 6; i++) {
+                queue.Enqueue(i);
+            }
+
+            Assert.AreEqual("{0, 1, 2, 3, 4, 5}", queue.ToString());
+        }
+
+        [TestMethod()]
+        public void DequeueTest() {
+            for (int i = 0; i < 6; i++) {
+                queue.Enqueue(i);
+            }
+            
+            for(int i = 0; i < 2; i++) {
+                queue.Dequeue();
+            }
+            Assert.AreEqual(2, queue.Dequeue());
+            Assert.AreEqual("{3, 4, 5}", queue.ToString());
+        }
+
+        [TestMethod()]
+        public void PeakTest() {
+            for (int i = 0; i < 6; i++) {
+                queue.Enqueue(i);
+            }
+            Assert.AreEqual(0, queue.Peak());
+            Assert.AreEqual("{0, 1, 2, 3, 4, 5}", queue.ToString());
         }
     }
 }

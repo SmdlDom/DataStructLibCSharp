@@ -1,55 +1,102 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using DataStructLib.ArrayBackedStruct;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace DataStructLib.ArrayBackedStruct.Tests {
-    [TestClass]
+    [TestClass()]
     public class ArrayListTests {
 
-        private ArrayList arrayList = new ArrayList();
+        private ArrayList list = new ArrayList();
 
-        [TestMethod]
-        public void ArrayListTest() {
-            arrayList.Append(8);
-            arrayList.Append(4);
-            arrayList.Append(2);
-            arrayList.Append(1);
-            Assert.AreEqual("{8, 4, 2, 1}", arrayList.ToString());
-            Assert.AreEqual(8, arrayList.Cap);
-            arrayList.Insert(6, 1);
-            arrayList.Insert(6, 3);
-            arrayList.Insert(6, 5);
-            arrayList.Insert(6, 7);
-            arrayList.Insert(6, 0);
-            Assert.AreEqual("{6, 8, 6, 4, 6, 2, 6, 1, 6}", arrayList.ToString());
-            Assert.AreEqual(16, arrayList.Cap);
-            Assert.AreEqual(0, arrayList.IndexOf(6));
-            Assert.AreEqual(2, arrayList.IndexOf(6, 1));
-            Assert.AreEqual(-1, arrayList.IndexOf(6, 1, 1));
-            Assert.AreEqual(8, arrayList.LastIndexOf(6));
-            Assert.AreEqual(6, arrayList.LastIndexOf(6, 1));
-            Assert.AreEqual(-1, arrayList.LastIndexOf(6, 1, 1));
-            arrayList.Reverse();
-            Assert.AreEqual("{6, 1, 6, 2, 6, 4, 6, 8, 6}", arrayList.ToString());
-            arrayList.ReverseSection(2, 4);
-            Assert.AreEqual("{6, 1, 4, 6, 2, 6, 6, 8, 6}", arrayList.ToString());
-            arrayList.Remove(6);
-            arrayList.RemoveAtIndex(0);
-            Assert.AreEqual("{4, 6, 2, 6, 6, 8, 6}", arrayList.ToString());
-            arrayList.RemoveSection(1, 4);
-            Assert.AreEqual("{4, 8, 6}", arrayList.ToString());
-            Assert.AreEqual(8, arrayList.Cap);
-            Assert.AreEqual(true, arrayList.Contains(8));
-            arrayList[1] = 12;
-            Assert.AreEqual(12, arrayList[1]);
-            arrayList.TrimToSize();
-            Assert.AreEqual(3, arrayList.Cap);
-            arrayList.Insert(0, 1);
-            Assert.AreEqual(8, arrayList.Cap);
-            arrayList.RemoveAtIndex(0);
-            arrayList.RemoveAtIndex(0);
-            arrayList.RemoveAtIndex(0);
-            Assert.AreEqual(8, arrayList.Cap);
-            arrayList.Clear();
-            Assert.AreEqual("{}", arrayList.ToString());
+        [TestMethod()]
+        public void AppendTest() {
+            for (int i = 0; i < 4; i++) {
+                list.Append(i);
+            }
+            Assert.AreEqual("{0, 1, 2, 3}", list.ToString());
         }
-   } 
+
+        [TestMethod()]
+        public void ContainsTest() {
+            for (int i = 0; i < 4; i++) {
+                list.Append(i);
+            }
+            Assert.AreEqual(true, list.Contains(3));
+            Assert.AreEqual(false, list.Contains(4));
+        }
+
+        [TestMethod()]
+        public void IndexOfTest() {
+            for (int i = 1; i < 4; i++) {
+                list.Append(i);
+            }
+            for (int i = 1; i < 4; i++) {
+                list.Append(i);
+            }
+            Assert.AreEqual(2, list.IndexOf(3));
+            Assert.AreEqual(-1, list.IndexOf(4));
+            Assert.AreEqual(5, list.IndexOf(3, 3));
+            Assert.AreEqual(-1, list.IndexOf(3, 3, 2));
+            Assert.AreEqual("{1, 2, 3, 1, 2, 3}", list.ToString());
+        }
+
+
+        [TestMethod()]
+        public void InsertTest() {
+            for (int i = 1; i < 4; i++) {
+                list.Append(i);
+            }
+            list.Insert(4, 0);
+            list.Insert(5, 1);
+            list.Insert(6, 5);
+            Assert.AreEqual("{4, 5, 1, 2, 3, 6}", list.ToString());
+        }
+
+        [TestMethod()]
+        public void LastIndexOfTest() {
+            for (int i = 1; i < 4; i++) {
+                list.Append(i);
+            }
+            for (int i = 1; i < 4; i++) {
+                list.Append(i);
+            }
+            Assert.AreEqual(5, list.LastIndexOf(3));
+            Assert.AreEqual(-1, list.LastIndexOf(4));
+            Assert.AreEqual(2, list.LastIndexOf(3, 1));
+            Assert.AreEqual(-1, list.LastIndexOf(3, 1, 2));
+        }
+
+        [TestMethod()]
+        public void RemoveTest() {
+            for (int i = 1; i < 4; i++) {
+                list.Append(i);
+            }
+            for (int i = 1; i < 4; i++) {
+                list.Append(i);
+            }
+            list.Remove(3);
+            list.RemoveAtIndex(0);
+            Assert.AreEqual("{2, 1, 2, 3}", list.ToString());
+            list.RemoveSection(1, 2);
+            Assert.AreEqual("{2, 3}", list.ToString());
+            list.RemoveSection(0, 2);
+            Assert.AreEqual(true, list.IsEmpty());
+        }
+
+        [TestMethod()]
+        public void ReverseTest() {
+            for (int i = 1; i < 4; i++) {
+                list.Append(i);
+            }
+            for (int i = 1; i < 4; i++) {
+                list.Append(i);
+            }
+            list.Reverse();
+            Assert.AreEqual("{3, 2, 1, 3, 2, 1}", list.ToString());
+            list.ReverseSection(1, 4);
+            Assert.AreEqual("{3, 2, 3, 1, 2, 1}", list.ToString());
+        }
+    }
 }
