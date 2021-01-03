@@ -16,20 +16,20 @@ namespace DataStructLib.ArrayBackedStruct {
             _size = 0;
         }
 
-        //Push a new item on top of the stack
+        //Push a new item on top of the stack. O(1) amortized
         public void Push(Object item) {
             if (_size == _items.Length) EnsureCap(_size + 1);
             _items[_size++] = item;
         }
 
-        //Pop the item on top of the stack
+        //Pop the item on top of the stack. O(1) amortized
         public Object Pop() {
             Object res = _items[--_size];
             ReduceCap();
             return res;
         }
 
-        //Peek at the item on top of the stack without popping it
+        //Peek at the item on top of the stack without popping it. O(1)
         public Object Peak() {
             return _items[_size - 1];
         }

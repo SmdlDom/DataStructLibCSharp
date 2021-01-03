@@ -43,19 +43,19 @@ namespace DataStructLib.LinkedNodeStruct {
             }
         }
 
-        //Clears the contents of this structure
+        //Clears the contents of this structure. O(1)
         public void Clear() {
             _head = null;
             _size = 0;
         }
 
-        //Check if this structure is empty
+        //Check if this structure is empty. O(1)
         public bool IsEmpty() {
             if (_size == 0) return true;
             return false;
         }
 
-        //Convert this structure to an array
+        //Convert this structure to an array. O(n)
         protected virtual Object[] ToArray() {
             Object[] copy = new Object[_size];
             SinglyLinkedNode curr = _head;
@@ -66,7 +66,7 @@ namespace DataStructLib.LinkedNodeStruct {
             return copy;
         }
 
-        //Return a string representation of this structure
+        //Return a string representation of this structure. O(n)
 
         public sealed override string ToString() {
             return String.Concat("{", String.Concat(String.Join(", ", ToArray()), "}"));

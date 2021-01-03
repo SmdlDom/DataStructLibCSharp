@@ -10,7 +10,7 @@ namespace DataStructLib.LinkedNodeStruct {
             _size = 0;
         }
 
-        //Adds the given item object to the end of this list, adjusting the capacity of the list if needed.
+        //Adds the given item object to the end of this list, adjusting the capacity of the list if needed. O(1)
         public void Append(Object item) {
             DoublyLinkedNode newTail = new DoublyLinkedNode(item);
             _size++;
@@ -25,7 +25,7 @@ namespace DataStructLib.LinkedNodeStruct {
             _tail = newTail;
         }
 
-        //Determine if the list contains the given item.
+        //Determine if the list contains the given item. O(n)
         public bool Contains(Object item) {
             DoublyLinkedNode curr = _head;
             while (curr != null) {
@@ -35,7 +35,7 @@ namespace DataStructLib.LinkedNodeStruct {
             return false;
         }
 
-        //Return the index of the first occurrence of the given item.
+        //Return the index of the first occurrence of the given item. O(n)
         public int IndexOf(Object item) {
             try {
                 return IndexOf(item, 0, _size);
@@ -44,12 +44,12 @@ namespace DataStructLib.LinkedNodeStruct {
             }
         }
 
-        //Return the index of the first occurrence of the given item beginning the search at index start.
+        //Return the index of the first occurrence of the given item beginning the search at index start. O(n)
         public int IndexOf(Object item, int start) {
             return IndexOf(item, start, _size - start);
         }
 
-        //Return the index of the first occurrence of the given item beginning the search at index start, searching through a length of count.
+        //Return the index of the first occurrence of the given item beginning the search at index start, searching through a length of count. O(n)
         public int IndexOf(Object item, int start, int count) {
             if (start < 0 || start >= _size) throw new ArgumentOutOfRangeException("start", "The start index is out of range");
             if (count < 0 || start > _size - count) throw new ArgumentOutOfRangeException("count", "The count is out of range");
@@ -86,7 +86,7 @@ namespace DataStructLib.LinkedNodeStruct {
             }
         }
 
-        //Insert an item into this list at a given index.
+        //Insert an item into this list at a given index. O(n)
         public void Insert(Object item, int index) {
             if (index < 0 || index > _size) throw new ArgumentOutOfRangeException("index", "The index is out of range");
 
@@ -121,7 +121,7 @@ namespace DataStructLib.LinkedNodeStruct {
             }
         }
 
-        //Return the index of the last occurrence of the given item, making the search backward trough the List
+        //Return the index of the last occurrence of the given item, making the search backward trough the List. O(n)
         public int LastIndexOf(Object item) {
             try {
                 return LastIndexOf(item, 0, _size);
@@ -130,12 +130,12 @@ namespace DataStructLib.LinkedNodeStruct {
             }
         }
 
-        //Return the index of the last occurrence of the given item, making the search backward trough the list. Starting from the index start.
+        //Return the index of the last occurrence of the given item, making the search backward trough the list. Starting from the index start. O(n)
         public int LastIndexOf(Object item, int start) {
             return LastIndexOf(item, start, _size - start);            
         }
 
-        //Return the index of the last occurrence of the given item. Starting from the index start.
+        //Return the index of the last occurrence of the given item. Starting from the index start. O(n)
         public int LastIndexOf(Object item, int start, int count) {
             if (start < 0 || start >= _size) throw new ArgumentOutOfRangeException("start", "The start index is out of range");
             if (count < 0 || count > _size - start) throw new ArgumentOutOfRangeException("count", "The count is out of range");
@@ -166,7 +166,7 @@ namespace DataStructLib.LinkedNodeStruct {
             }
         }
 
-        //Remove the first occurrence of item from the list, if it's contains.
+        //Remove the first occurrence of item from the list, if it's contains. O(n)
         public void Remove(Object item) {
             try {
                 RemoveSection(IndexOf(item), 1);
@@ -175,12 +175,12 @@ namespace DataStructLib.LinkedNodeStruct {
             }
         }
 
-        //Remove the item at the given index.
+        //Remove the item at the given index. O(n)
         public void RemoveAtIndex(int index) {
             RemoveSection(index, 1);
         }
 
-        //Remove the items trough the specified range.
+        //Remove the items trough the specified range. O(n)
         public void RemoveSection(int start, int count) {
             if (start < 0 || start >= _size) throw new ArgumentOutOfRangeException("start", "The start index is out of range");
             if (count < 0 || count > _size - start) throw new ArgumentOutOfRangeException("count", "The count is out of range");
@@ -224,12 +224,12 @@ namespace DataStructLib.LinkedNodeStruct {
             _size -= count;
         }
 
-        //Reverse the list.
+        //Reverse the list. O(n)
         public void Reverse() {
             ReverseSection(0, _size);
         }
 
-        //Reverse the items of the list trough the given range.
+        //Reverse the items of the list trough the given range. O(n)
         public void ReverseSection(int start, int count) {
             if (start < 0 || start >= _size) throw new ArgumentOutOfRangeException("start", "The start index is out of range");
             if (count < 0 || count > _size + start) throw new ArgumentOutOfRangeException("count", "the count is out of range");

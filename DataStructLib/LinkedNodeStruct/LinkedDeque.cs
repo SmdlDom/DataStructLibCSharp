@@ -12,7 +12,7 @@ namespace DataStructLib.LinkedNodeStruct {
             _size = 0;
         }
 
-        //Push an item to the front of the deque
+        //Push an item to the front of the deque. O(1)
         public void EnqueueFront(Object item) {
             DoublyLinkedNode newHead = new DoublyLinkedNode(item);
             newHead.Next = _head;
@@ -21,7 +21,7 @@ namespace DataStructLib.LinkedNodeStruct {
             _size++;
         }
 
-        //Pop the item at the back of the deque
+        //Pop the item at the back of the deque. O(1)
         public Object DequeueBack() {
             Object res = _tail.Item;
             _tail = _tail.Prev;
@@ -29,7 +29,7 @@ namespace DataStructLib.LinkedNodeStruct {
             return res;
         }
 
-        //Peek at the item at the back of the deque
+        //Peek at the item at the back of the deque. O(1)
         public Object PeakBack() {
             return _tail.Item;
         }

@@ -12,7 +12,7 @@ namespace DataStructLib.LinkedNodeStruct {
             _size = 0;
         }
 
-        //Push a new item to the queue
+        //Push a new item to the queue. O(1) 
         public void Enqueue(Object item) {
             DoublyLinkedNode newTail = new DoublyLinkedNode(item);
             if (_head == null) {
@@ -25,7 +25,7 @@ namespace DataStructLib.LinkedNodeStruct {
             _size++;
         }
 
-        //Pop an item from the queue
+        //Pop an item from the queue. O(1)
         public Object Dequeue() {
             Object res = _head.Item;
             _head = _head.Next;
@@ -33,7 +33,7 @@ namespace DataStructLib.LinkedNodeStruct {
             return res;
         }
 
-        //Peek at the item at the front of the queue
+        //Peek at the item at the front of the queue. O(1)
         public Object Peak() {
             return _head.Item;
         }

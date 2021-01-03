@@ -11,7 +11,7 @@ namespace DataStructLib.LinkedNodeStruct {
             _size = 0;
         }
 
-        //Push a new item on top of the stack
+        //Push a new item on top of the stack. O(1)
         public void Push(Object item) {
             SinglyLinkedNode newHead = new SinglyLinkedNode(item);
             newHead.Next = _head;
@@ -19,7 +19,7 @@ namespace DataStructLib.LinkedNodeStruct {
             _size++;
         }
 
-        //Pop the item on top of the stack
+        //Pop the item on top of the stack. O(1)
         public Object Pop() {
             Object res = _head.Item;
             _head = _head.Next;
@@ -27,7 +27,7 @@ namespace DataStructLib.LinkedNodeStruct {
             return res;
         }
 
-        //Peek at the item on top of the stack without popping it
+        //Peek at the item on top of the stack without popping it. O(1)
         public Object Peak() {
             return _head.Item;
         }

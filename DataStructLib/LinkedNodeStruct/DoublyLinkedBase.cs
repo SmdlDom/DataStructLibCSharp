@@ -47,7 +47,7 @@ namespace DataStructLib.LinkedNodeStruct {
         protected new DoublyLinkedNode _head;
         protected DoublyLinkedNode _tail;
 
-        //Convert this structure to an array.
+        //Convert this structure to an array. O(n)
         protected sealed override Object[] ToArray() {
             Object[] copy = new object[_size];
             DoublyLinkedNode curr = _head;

@@ -19,13 +19,13 @@ namespace DataStructLib.ArrayBackedStruct {
             _ptr = 0;
         }
             
-        //Push a new item to the queue
-        public void Enqueue(Object item) {
+        //Push a new item to the queue. O(1) amortized
+        public void Enqueue(Object item) { 
             if (_size == _items.Length) EnsureCap(_size + 1);           
             _items[(_size++ + _ptr) % _items.Length] = item;
         }
 
-        //Pop an item from the queue
+        //Pop an item from the queue. O(1) amortized
         public Object Dequeue() {
             if (_size == 0) throw new IndexOutOfRangeException("The structure is empty");
             Object res = _items[_ptr];
@@ -36,7 +36,7 @@ namespace DataStructLib.ArrayBackedStruct {
             return res;
         }
 
-        //Peek at the item at the front of the queue
+        //Peek at the item at the front of the queue. O(1)
         public Object Peak() {
             if (_size == 0) throw new IndexOutOfRangeException("The structure is empty");
             return _items[_ptr];

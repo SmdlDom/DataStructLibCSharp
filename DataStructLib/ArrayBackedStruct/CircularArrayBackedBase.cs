@@ -7,7 +7,7 @@ namespace DataStructLib.ArrayBackedStruct {
 
         //Read-only property describing the starting index of the data contains in the circular array backed data structure.
         public int Pointer {
-            get {
+            get { 
                 return _ptr;
             }
         }
@@ -16,7 +16,7 @@ namespace DataStructLib.ArrayBackedStruct {
             get {
                 return _items.Length;
             }
-            set {  //resize the backing array reseting the pointer at 0
+            set {  //resize the backing array reseting the pointer at 0. O(n).
                 if (value < _size) {
                     throw new ArgumentOutOfRangeException("value", "Can't resize the backing array to a size that can't fit all the currently hold data");
                 }
@@ -37,7 +37,8 @@ namespace DataStructLib.ArrayBackedStruct {
                 }
             }
         }
-        //Convert this circular array backed data structure to an array
+
+        //Convert this circular array backed data structure to an array. O(n)
         protected sealed override Object[] ToArray() {
             Object[] copy = new Object[_size];
             for (int i = _ptr; i < _ptr + _size; i++) {
@@ -45,8 +46,5 @@ namespace DataStructLib.ArrayBackedStruct {
             }
             return copy;
         }
-
-
-
     }
 }

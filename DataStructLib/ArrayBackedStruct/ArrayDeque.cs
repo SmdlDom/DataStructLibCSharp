@@ -19,7 +19,7 @@ namespace DataStructLib.ArrayBackedStruct {
             _ptr = 0;
         }
 
-        //Push an item to the front of the deque
+        //Push an item to the front of the deque. O(1) amortized.
         public void EnqueueFront(Object item) {
             if (_size == _items.Length) EnsureCap(_size + 1);
             _ptr--;
@@ -28,7 +28,7 @@ namespace DataStructLib.ArrayBackedStruct {
             _size++;
         }
 
-        //Pop the item at the back of the deque
+        //Pop the item at the back of the deque. O(1) amortized.
         public Object DequeueBack() {
             if (_size == 0) throw new IndexOutOfRangeException("The structure is empty");
             Object res = _items[(_ptr + _size - 1) % _items.Length];
@@ -37,7 +37,7 @@ namespace DataStructLib.ArrayBackedStruct {
             return res;
         }
 
-        //Peek at the item at the back of the deque
+        //Peek at the item at the back of the deque. O(1)
         public Object PeakBack() {
             if (_size == 0) throw new IndexOutOfRangeException("The structure is empty");
             return _items[(_ptr + _size - 1) % _items.Length];
