@@ -1,7 +1,5 @@
 ﻿using DataStructLib.StructInterface;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DataStructLib.LinkedNodeStruct {
     public class SinglyLinkedList : SinglyLinkedBase, ListInterface {
@@ -91,7 +89,11 @@ namespace DataStructLib.LinkedNodeStruct {
 
         //Return the index of the last occurrence of the given item, making the search backward trough the List
         public int LastIndexOf(Object item) {
-            return LastIndexOf(item, 0, _size);
+            try {
+                return LastIndexOf(item, 0, _size);
+            } catch (ArgumentOutOfRangeException) {
+                return -1;
+            }
         }
 
         //Return the index of the last occurrence of the given item, making the search backward trough the list. Starting from the index start.
@@ -99,13 +101,13 @@ namespace DataStructLib.LinkedNodeStruct {
             return LastIndexOf(item, start, _size - start);
         }
 
-        //Return the index of the last occurrence of the given item, making the search backward trough the list. Starting from the index start.
+        //Return the index of the last occurrence of the given item. Starting from the index start.
         public int LastIndexOf(Object item, int start, int count) {
             if (start < 0 || start >= _size) throw new ArgumentOutOfRangeException("start", "The start index is out of range");
             if (count < 0 || count > _size - start) throw new ArgumentOutOfRangeException("count", " The count is out of range");
 
             SinglyLinkedNode curr = _head;
-            for (int i = 0; i < _size - start - count; i++)
+            for (int i = 0; i < start; i++)
                 curr = curr.Next;
 
             int res = -1;
@@ -115,13 +117,17 @@ namespace DataStructLib.LinkedNodeStruct {
             }
 
             if (res == -1) return res;
-            return res + _size - start - count;
+            return res + start;
             
         }
 
         //Remove the first occurrence of item from the list, if it's contains.
         public void Remove(Object item) {
-            RemoveSection(IndexOf(item), 1);
+            try {
+                RemoveSection(IndexOf(item), 1);
+            } catch (ArgumentOutOfRangeException) {
+                //pass
+            }
         }
 
         //Remove the item at the given index.
@@ -135,23 +141,22 @@ namespace DataStructLib.LinkedNodeStruct {
             if (count < 0 || count > _size - start) throw new ArgumentOutOfRangeException("count", "The count is out of range");
 
             _size -= count;
-            if (start == 0) {
+            if (start == 0) { //Base case remove from front
                 SinglyLinkedNode newHead = _head;
                 for (int i = 0; i < count; i++) {
                     newHead = newHead.Next;
                 }
                 _head = newHead;
-                return;
+            } else {
+                SinglyLinkedNode prev = _head;
+                for (int i = 0; i < start - 1; i++)
+                    prev = prev.Next;
+                SinglyLinkedNode next = prev.Next;
+                for (int i = 0; i < count; i++)
+                    next = next.Next;
+
+                prev.Next = next;
             }
-
-            SinglyLinkedNode prev = _head;
-            for (int i = 0; i < start - 1; i++)
-                prev = prev.Next;
-            SinglyLinkedNode next = prev.Next;
-            for (int i = 0; i < count; i++) 
-                next = next.Next;
-
-            prev.Next = next;
         }
 
         //Reverse the list.
@@ -183,16 +188,10 @@ namespace DataStructLib.LinkedNodeStruct {
                 endSegBeg = endSegBeg.Next;
             }
 
+            SinglyLinkedNode curr = _head;
+            if (begSegEnd != null) curr = begSegEnd.Next;
 
-
-            SinglyLinkedNode curr;
-            if (begSegEnd == null) {
-                curr = _head;
-            } else {
-                curr = begSegEnd.Next;
-            }
-
-            for(int i = 0; i < count; i++) {
+            for (int i = 0; i < count; i++) {
                 SinglyLinkedNode nextCurr = curr.Next;
                 curr.Next = endSegBeg;
                 endSegBeg = curr;

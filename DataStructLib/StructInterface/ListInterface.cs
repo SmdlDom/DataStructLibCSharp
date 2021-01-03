@@ -24,10 +24,10 @@ namespace DataStructLib.StructInterface {
 
         //TODO implement a variant of Insert that insert any list implementing this interface. Need to implement an Iterator
 
-        //Return the index of the last occurrence of the given item, making the search backward trough the List
+        //Return the index of the last occurrence of the given item.
         int LastIndexOf(Object item);
 
-        //Return the index of the last occurrence of the given item, making the search backward trough the list. Starting from the index start.
+        //Return the index of the last occurrence of the given item. Starting from the index start.
         int LastIndexOf(Object item, int start);
 
         //Return the index of the last occurrence of the given item, making the search backward trough the list. Starting from the index start.

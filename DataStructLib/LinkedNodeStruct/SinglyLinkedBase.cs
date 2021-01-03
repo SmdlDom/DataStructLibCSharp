@@ -3,7 +3,6 @@
 namespace DataStructLib.LinkedNodeStruct {
     public abstract class SinglyLinkedBase {
 
-        //TODO this class and ArrayBackedStruct.ArrayBackedBase could implement a common interface
         protected class SinglyLinkedNode {
             private Object _item;
             private SinglyLinkedNode _next;
@@ -57,7 +56,7 @@ namespace DataStructLib.LinkedNodeStruct {
         }
 
         //Convert this structure to an array
-        private Object[] ToArray() {
+        protected virtual Object[] ToArray() {
             Object[] copy = new Object[_size];
             SinglyLinkedNode curr = _head;
             for (int i = 0; i < _size; i++) {

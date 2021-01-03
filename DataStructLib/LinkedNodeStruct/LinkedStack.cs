@@ -14,7 +14,6 @@ namespace DataStructLib.LinkedNodeStruct {
         //Push a new item on top of the stack
         public void Push(Object item) {
             SinglyLinkedNode newHead = new SinglyLinkedNode(item);
-            //throw new Exception((newHead.Item == null).ToString());
             newHead.Next = _head;
             _head = newHead;
             _size++;

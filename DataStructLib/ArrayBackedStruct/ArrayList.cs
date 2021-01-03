@@ -44,7 +44,11 @@ namespace DataStructLib.ArrayBackedStruct {
 
         //Return the index of the first occurrence of the given item. Return -1 if the item is not found
         public int IndexOf(Object item) {
-            return IndexOf(item, 0, _size);
+            try {
+                return IndexOf(item, 0, _size);
+            } catch (ArgumentOutOfRangeException) {
+                return -1;
+            }
         }
 
         //Return the index of the first occurrence of the given item beginning the search at index start. Return -1 if the item is not found.
@@ -93,25 +97,30 @@ namespace DataStructLib.ArrayBackedStruct {
             return LastIndexOf(item, start, _size - start);
         }
 
-        //Return the index of the last occurrence of the given item, making the search backward trough the list. Starting from the index start.
+        //Return the index of the last occurrence of the given item. Starting from the index start.
         public int LastIndexOf(Object item, int start, int count) {
             if (start < 0 || start >= _size) throw new ArgumentOutOfRangeException("start", "The start index is out of range");
             if (count < 0 || count > _size - start) throw new ArgumentOutOfRangeException("count", "The count is out of range");
 
+            int res = -1;
             if (item == null) {
-                for (int i = _size - 1 - start; i > _size - 1 - start - count; i--)
-                    if (_items[i] == null) return i;
-                return -1;
+                for (int i = start; i < count + start; i--)
+                    if (_items[i] == null) res = i;
+                return res;
             } else {
-                for (int i = _size - 1 - start; i > _size - 1 - start - count; i--)
-                    if ((_items[i] != null) && (_items[i].Equals(item))) return i;
-                return -1;
+                for (int i = start; i < count + start; i--)
+                    if ((_items[i] != null) && (_items[i].Equals(item))) res = i;
+                return res;
             }
         }
 
         //Remove the first occurrence of item from the list, if it's contains.
         public void Remove(Object item) {
-            RemoveSection(IndexOf(item), 1);
+            try {
+                RemoveSection(IndexOf(item), 1);
+            } catch (ArgumentOutOfRangeException) {
+                //pass
+            }
         }
 
         //Remove the item at the given index.

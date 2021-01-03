@@ -1,18 +1,20 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using DataStructLib.ArrayBackedStruct;
+using DataStructLib.LinkedNodeStruct;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DataStructLib.ArrayBackedStruct.Tests {
+namespace DataStructLib.LinkedNodeStruct.Tests {
     [TestClass()]
-    public class ArrayListTests {
-
-        private ArrayList list = new ArrayList();
+    public class DoublyLinkedListTests {
+        
+        //TODO verify that the test triggers from the back selection
+        //TODO implement a ToStringFromBackward to make sure that the prev pointers are properly set
+        private DoublyLinkedList list = new DoublyLinkedList();
 
         [TestMethod()]
         public void AppendTest() {
-            for (int i = 0; i < 4; i++) {
+            for (int i = 0; i < 4; i ++) {
                 list.Append(i);
             }
             Assert.AreEqual("{0, 1, 2, 3}", list.ToString());
@@ -32,29 +34,27 @@ namespace DataStructLib.ArrayBackedStruct.Tests {
             for (int i = 1; i < 4; i++) {
                 list.Append(i);
             }
+            Assert.AreEqual(2, list.IndexOf(3));
+            Assert.AreEqual(-1, list.IndexOf(4));
             for (int i = 1; i < 4; i++) {
                 list.Append(i);
             }
-            Assert.AreEqual(2, list.IndexOf(3));
-            Assert.AreEqual(-1, list.IndexOf(4));
             Assert.AreEqual(5, list.IndexOf(3, 3));
             Assert.AreEqual(-1, list.IndexOf(3, 3, 2));
-            Assert.AreEqual("{1, 2, 3, 1, 2, 3}", list.ToString());
         }
-
 
         [TestMethod()]
         public void InsertTest() {
             for (int i = 1; i < 4; i++) {
                 list.Append(i);
             }
-            list.Insert(4, 0);
-            list.Insert(5, 1);
-            list.Insert(6, 5);
-            Assert.AreEqual("{4, 5, 1, 2, 3, 6}", list.ToString());
+            list.Insert(0, 0);
+            list.Insert(4, 1);
+            list.Insert(5, 4);
+            list.Insert(6, 6);
+            Assert.AreEqual("{0, 4, 1, 2, 5, 3, 6}", list.ToString());
         }
 
-        //TODO redo test
         [TestMethod()]
         public void LastIndexOfTest() {
             for (int i = 1; i < 4; i++) {
@@ -65,8 +65,9 @@ namespace DataStructLib.ArrayBackedStruct.Tests {
             }
             Assert.AreEqual(5, list.LastIndexOf(3));
             Assert.AreEqual(-1, list.LastIndexOf(4));
-            Assert.AreEqual(2, list.LastIndexOf(3, 1));
-            Assert.AreEqual(-1, list.LastIndexOf(3, 1, 2));
+            list.Insert(0, 0);
+            Assert.AreEqual(-1, list.LastIndexOf(0, 1));
+            Assert.AreEqual(3, list.LastIndexOf(3, 1, 3));
         }
 
         [TestMethod()]
@@ -77,13 +78,26 @@ namespace DataStructLib.ArrayBackedStruct.Tests {
             for (int i = 1; i < 4; i++) {
                 list.Append(i);
             }
+            list.Remove(1);
             list.Remove(3);
+            list.Remove(3);
+            Assert.AreEqual("{2, 1, 2}", list.ToString());
+            for (int i = 1; i < 4; i++) {
+                list.Append(i);
+            }
             list.RemoveAtIndex(0);
-            Assert.AreEqual("{2, 1, 2, 3}", list.ToString());
-            list.RemoveSection(1, 2);
-            Assert.AreEqual("{2, 3}", list.ToString());
-            list.RemoveSection(0, 2);
-            Assert.AreEqual(true, list.IsEmpty());
+            list.RemoveAtIndex(1);
+            list.RemoveAtIndex(3);
+            Assert.AreEqual("{1, 1, 2}", list.ToString());
+            for (int i = 1; i < 4; i++) {
+                list.Append(i);
+            }
+            list.RemoveSection(1, 4);
+            Assert.AreEqual("{1, 3}", list.ToString());
+            for (int i = 1; i < 4; i++) {
+                list.Append(i);
+            }
+
         }
 
         [TestMethod()]
