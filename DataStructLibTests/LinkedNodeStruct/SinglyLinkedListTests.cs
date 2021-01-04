@@ -66,7 +66,7 @@ namespace DataStructLib.LinkedNodeStruct.Tests {
 
             Assert.AreEqual(6, list.LastIndexOf(2));
             Assert.AreEqual(-1, list.LastIndexOf(4));
-            Assert.AreEqual(2, list.LastIndexOf(2, 2));
+            Assert.AreEqual(-1, list.LastIndexOf(2, 7));
             Assert.AreEqual(2, list.LastIndexOf(2, 2, 4));
            
         }

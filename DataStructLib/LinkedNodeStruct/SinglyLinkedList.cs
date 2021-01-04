@@ -9,7 +9,7 @@ namespace DataStructLib.LinkedNodeStruct {
             _size = 0;
         }
 
-        //Adds the given item object to the end of this list, adjusting the capacity of the list if needed. O(1)
+        //Adds the given item object to the end of this list, adjusting the capacity of the list if needed. O(n)
         public void Append(Object item) {
             if (_head == null) {
                 _head = new SinglyLinkedNode(item);

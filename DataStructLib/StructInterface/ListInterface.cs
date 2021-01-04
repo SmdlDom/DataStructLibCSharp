@@ -5,7 +5,7 @@ namespace DataStructLib.StructInterface {
         //Adds the given item object to the end of this list, adjusting the capacity of the list if needed.
         void Append(Object item);
 
-        //TODO implement a variant of Append that let you append any list implementing this interface. Need to implement an Iterator
+        //TODO implement a variant of Append that let you append any list implementing Iterator. Need to implement an Iterator
 
         //Determine if the list contains the given item.
         bool Contains(Object item);
@@ -22,7 +22,7 @@ namespace DataStructLib.StructInterface {
         //Insert an item into this list at a given index.
         void Insert(Object item, int index);
 
-        //TODO implement a variant of Insert that insert any list implementing this interface. Need to implement an Iterator
+        //TODO implement a variant of Insert that insert any list implementing Iterator. Need to implement an Iterator
 
         //Return the index of the last occurrence of the given item.
         int LastIndexOf(Object item);

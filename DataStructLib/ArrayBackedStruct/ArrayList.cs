@@ -56,7 +56,7 @@ namespace DataStructLib.ArrayBackedStruct {
             return IndexOf(item, start, _size - start);
         }
 
-        //Return the index of the first occurrence of the given item beginning the search at index start, searching through a length of count. O(n)
+        //Return the index of the first occurrence of the given item beginning the search at index start, searching through a length of count. O(n)r
         public int IndexOf(Object item, int start, int count) {
             if (start < 0 || start >= _size) throw new ArgumentOutOfRangeException("start", "The start index is out of range");
             if (count < 0 || start > _size - count) throw new ArgumentOutOfRangeException("count", "The count is out of range");
@@ -102,13 +102,15 @@ namespace DataStructLib.ArrayBackedStruct {
             if (start < 0 || start >= _size) throw new ArgumentOutOfRangeException("start", "The start index is out of range");
             if (count < 0 || count > _size - start) throw new ArgumentOutOfRangeException("count", "The count is out of range");
 
+            //throw new Exception((_items.Length).ToString());
+
             int res = -1;
             if (item == null) {
-                for (int i = start; i < count + start; i--)
+                for (int i = start; i < count + start; i++)
                     if (_items[i] == null) res = i;
                 return res;
             } else {
-                for (int i = start; i < count + start; i--)
+                for (int i = start; i < count + start; i++)
                     if ((_items[i] != null) && (_items[i].Equals(item))) res = i;
                 return res;
             }

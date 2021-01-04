@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace DataStructLib.StructInterface {
-    interface QueueInterface {
+    public interface QueueInterface {
         //Push a new item to the queue
         void Enqueue(Object item);
 

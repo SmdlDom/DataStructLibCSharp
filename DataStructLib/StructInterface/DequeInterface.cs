@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace DataStructLib.StructInterface {
-    interface DequeInterface : QueueInterface {
+    public interface DequeInterface : QueueInterface {
         //Push an item to the front of the deque
         void EnqueueFront(Object item);
 

@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace DataStructLib.StructInterface {
-    interface StackInterface {
+    public interface StackInterface {
         //Push a new item on top of the stack
         void Push(Object item);
 

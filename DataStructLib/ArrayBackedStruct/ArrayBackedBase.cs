@@ -62,7 +62,7 @@ namespace DataStructLib.ArrayBackedStruct {
         public bool IsEmpty() {
             if (_size == 0) return true;
             return false;
-        }
+        } 
 
         //Halve the capacity of this list if it's size is smaller then a forth of the current capacity. O(n)
         protected virtual void ReduceCap() {

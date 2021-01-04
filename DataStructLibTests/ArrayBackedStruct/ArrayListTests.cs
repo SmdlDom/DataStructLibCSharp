@@ -65,8 +65,8 @@ namespace DataStructLib.ArrayBackedStruct.Tests {
             }
             Assert.AreEqual(5, list.LastIndexOf(3));
             Assert.AreEqual(-1, list.LastIndexOf(4));
-            Assert.AreEqual(2, list.LastIndexOf(3, 1));
-            Assert.AreEqual(-1, list.LastIndexOf(3, 1, 2));
+            Assert.AreEqual(3, list.LastIndexOf(1, 3));
+            Assert.AreEqual(-1, list.LastIndexOf(3, 0, 2));
         }
 
         [TestMethod()]
