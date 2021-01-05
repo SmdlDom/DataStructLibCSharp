@@ -1,7 +1,6 @@
-﻿using DataStructLib.StructInterface;
+﻿using DataStructLib.LinkedNodeStruct.Abstract;
+using DataStructLib.StructInterface;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DataStructLib.LinkedNodeStruct {
     public class LinkedQueue : DoublyLinkedBase, QueueInterface {

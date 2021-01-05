@@ -1,4 +1,5 @@
-﻿using DataStructLib.StructInterface;
+﻿using DataStructLib.LinkedNodeStruct.Abstract;
+using DataStructLib.StructInterface;
 using System;
 
 namespace DataStructLib.LinkedNodeStruct {

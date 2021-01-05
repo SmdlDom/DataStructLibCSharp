@@ -1,7 +1,7 @@
 ﻿using System;
 
-namespace DataStructLib.ArrayBackedStruct {
-    public abstract class CircularArrayBackedBase : ArrayBackedBase {
+namespace DataStructLib.ArrayBackedStruct.Abstract {
+    public abstract class CircularArrayBacked : ArrayBacked {
 
         protected int _ptr;
 

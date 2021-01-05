@@ -54,8 +54,7 @@ namespace DataStructLib.LinkedNodeStruct.Tests {
 
         }
 
-        //TODO redo test
-        [TestMethod()]
+         [TestMethod()]
         public void LastIndexOfTest() {
             for (int i = 0; i < 4; i++) {
                 list.Append(i);

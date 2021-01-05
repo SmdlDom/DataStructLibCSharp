@@ -1,7 +1,7 @@
 ﻿using System;
 
-namespace DataStructLib.ArrayBackedStruct {
-     public abstract class ArrayBackedBase {
+namespace DataStructLib.ArrayBackedStruct.Abstract {
+     public abstract class ArrayBacked {
         protected Object[] _items;
         protected int _size;
 

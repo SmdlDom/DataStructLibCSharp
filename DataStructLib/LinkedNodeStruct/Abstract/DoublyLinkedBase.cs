@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DataStructLib.LinkedNodeStruct {
+namespace DataStructLib.LinkedNodeStruct.Abstract {
     public abstract class DoublyLinkedBase : SinglyLinkedBase {
         protected class DoublyLinkedNode {
             private Object _item;

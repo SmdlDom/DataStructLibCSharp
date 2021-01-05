@@ -1,8 +1,9 @@
-﻿using DataStructLib.StructInterface;
+﻿using DataStructLib.ArrayBackedStruct.Abstract;
+using DataStructLib.StructInterface;
 using System;
 
 namespace DataStructLib.ArrayBackedStruct {
-    public class ArrayQueue : CircularArrayBackedBase, QueueInterface {
+    public class ArrayQueue : CircularArrayBacked, QueueInterface {
 
         public ArrayQueue() {
             _items = new Object[_defaultCap];

@@ -1,9 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using DataStructLib.ArrayBackedStruct;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace DataStructLib.ArrayBackedStruct.Tests {
     [TestClass()]
     public class ArrayListTests {
@@ -54,7 +50,14 @@ namespace DataStructLib.ArrayBackedStruct.Tests {
             Assert.AreEqual("{4, 5, 1, 2, 3, 6}", list.ToString());
         }
 
-        //TODO redo test
+        [TestMethod()]
+        public void Iterator() {
+            for (int i = 1; i < 4; i++) {
+                list.Append(i);
+            }
+
+        }
+
         [TestMethod()]
         public void LastIndexOfTest() {
             for (int i = 1; i < 4; i++) {
@@ -99,5 +102,6 @@ namespace DataStructLib.ArrayBackedStruct.Tests {
             list.ReverseSection(1, 4);
             Assert.AreEqual("{3, 2, 3, 1, 2, 1}", list.ToString());
         }
+
     }
 }

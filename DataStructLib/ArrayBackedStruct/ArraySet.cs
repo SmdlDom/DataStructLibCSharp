@@ -1,10 +1,9 @@
-﻿using DataStructLib.StructInterface;
+﻿using DataStructLib.ArrayBackedStruct.Abstract;
+using DataStructLib.StructInterface;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DataStructLib.ArrayBackedStruct {
-    public class ArraySet : ArrayBackedBase, SetInterface {
+    public class ArraySet : ArrayBacked, SetInterface {
 
         public ArraySet() {
             _items = new object[_defaultCap];

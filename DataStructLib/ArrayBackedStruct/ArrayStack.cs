@@ -1,7 +1,8 @@
-﻿using System;
+﻿using DataStructLib.ArrayBackedStruct.Abstract;
+using System;
 
 namespace DataStructLib.ArrayBackedStruct {
-    public class ArrayStack : ArrayBackedBase {
+    public class ArrayStack : ArrayBacked {
 
         public ArrayStack() {
             _items = new Object[_defaultCap];

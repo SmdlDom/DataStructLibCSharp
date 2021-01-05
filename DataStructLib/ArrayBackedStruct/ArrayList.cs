@@ -1,10 +1,10 @@
-﻿using DataStructLib.StructInterface;
+﻿using DataStructLib.ArrayBackedStruct.Abstract;
+using DataStructLib.StructInterface;
 using System;
 
 namespace DataStructLib.ArrayBackedStruct {
-    //TODO handle array overflow
-    public class ArrayList: ArrayBackedBase, ListInterface {
 
+    public class ArrayList : ArrayBacked, ListInterface {
         public ArrayList() {
             _items = new Object[_defaultCap];
             _size = 0;
@@ -30,6 +30,7 @@ namespace DataStructLib.ArrayBackedStruct {
             }
         }
 
+        
         //Adds the given item to the end of this list, adjusting the capacity of the list if needed. O(1) amortized
         public void Append(Object item) { 
             if (_size == _items.Length) EnsureCap(_size + 1);
