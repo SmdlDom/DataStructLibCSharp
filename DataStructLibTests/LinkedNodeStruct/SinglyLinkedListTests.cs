@@ -54,7 +54,17 @@ namespace DataStructLib.LinkedNodeStruct.Tests {
 
         }
 
-         [TestMethod()]
+        [TestMethod()]
+        public void IndexingTest() {
+            for (int i = 1; i < 4; i++) {
+                list.Append(i);
+            }
+            Assert.AreEqual(2, list[1]);
+            list[1] = 3;
+            Assert.AreEqual(3, list[1]);
+        }
+
+        [TestMethod()]
         public void LastIndexOfTest() {
             for (int i = 0; i < 4; i++) {
                 list.Append(i);

@@ -51,11 +51,13 @@ namespace DataStructLib.ArrayBackedStruct.Tests {
         }
 
         [TestMethod()]
-        public void Iterator() {
+        public void IndexingTest() {
             for (int i = 1; i < 4; i++) {
                 list.Append(i);
             }
-
+            Assert.AreEqual(2, list[1]);
+            list[1] = 3;
+            Assert.AreEqual(3, list[1]);
         }
 
         [TestMethod()]
@@ -102,6 +104,5 @@ namespace DataStructLib.ArrayBackedStruct.Tests {
             list.ReverseSection(1, 4);
             Assert.AreEqual("{3, 2, 3, 1, 2, 1}", list.ToString());
         }
-
     }
 }

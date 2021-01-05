@@ -1,4 +1,5 @@
-﻿using DataStructLib.LinkedNodeStruct.Abstract;
+﻿using DataStructLib.ArrayBackedStruct;
+using DataStructLib.LinkedNodeStruct.Abstract;
 using DataStructLib.StructInterface;
 using System;
 
@@ -8,6 +9,27 @@ namespace DataStructLib.LinkedNodeStruct {
         public SinglyLinkedList() {
             _head = null;
             _size = 0;
+        }
+
+        public object this[int index] {
+            get { //O(n)
+                if (index < 0 || index >= _size) throw new ArgumentOutOfRangeException("index", "The index is out of range");
+
+                SinglyLinkedNode curr = _head;
+                for (int i = 0; i < index; i++) {
+                    curr = curr.Next;
+                }
+                return curr.Item;
+            }
+            set { //O(n)
+                if (index < 0 || index >= _size) throw new ArgumentOutOfRangeException("index", "The index is out of range");
+
+                SinglyLinkedNode curr = _head;
+                for (int i = 0; i < index; i++) {
+                    curr = curr.Next;
+                }
+                curr.Item = value;
+            }
         }
 
         //Adds the given item object to the end of this list, adjusting the capacity of the list if needed. O(n)

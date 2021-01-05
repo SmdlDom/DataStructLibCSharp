@@ -56,6 +56,17 @@ namespace DataStructLib.LinkedNodeStruct.Tests {
         }
 
         [TestMethod()]
+        public void IndexingTest() {
+            for (int i = 1; i < 4; i++) {
+                list.Append(i);
+            }
+            Assert.AreEqual(2, list[1]);
+            list[1] = 3;
+            Assert.AreEqual(3, list[1]);
+            Assert.AreEqual(3, list[2]);
+        }
+
+        [TestMethod()]
         public void LastIndexOfTest() {
             for (int i = 1; i < 4; i++) {
                 list.Append(i);
@@ -94,9 +105,10 @@ namespace DataStructLib.LinkedNodeStruct.Tests {
             }
             list.RemoveSection(1, 4);
             Assert.AreEqual("{1, 3}", list.ToString());
-            for (int i = 1; i < 4; i++) {
-                list.Append(i);
-            }
+            list.RemoveAtIndex(0);
+            Assert.AreEqual("{3}", list.ToString());
+            list.RemoveAtIndex(0);
+            Assert.AreEqual("{}", list.ToString());
 
         }
 

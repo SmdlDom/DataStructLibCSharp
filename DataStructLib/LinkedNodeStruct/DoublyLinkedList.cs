@@ -1,4 +1,5 @@
-﻿using DataStructLib.LinkedNodeStruct.Abstract;
+﻿using DataStructLib.ArrayBackedStruct;
+using DataStructLib.LinkedNodeStruct.Abstract;
 using DataStructLib.StructInterface;
 using System;
 
@@ -9,6 +10,42 @@ namespace DataStructLib.LinkedNodeStruct {
             _head = null;
             _tail = null;
             _size = 0;
+        }
+
+        //TODO make a reach index function
+        public object this[int index] {
+            get { //O(n)
+                if (index < 0 || index >= _size) throw new ArgumentOutOfRangeException("index", "The index is out of range");
+
+                DoublyLinkedNode curr = _head;
+                if (index <= _size / 2) {
+                    for (int i = 0; i < index; i++) {
+                        curr = curr.Next;
+                    }
+                } else {
+                    curr = _tail;
+                    for (int i = 0; i < _size - index - 1; i++) {
+                        curr = curr.Prev;
+                    }
+                }
+                return curr.Item;
+            }
+            set { //O(n)
+                if (index < 0 || index >= _size) throw new ArgumentOutOfRangeException("index", "The index is out of range");
+
+                DoublyLinkedNode curr = _head;
+                if (index <= _size / 2) {
+                    for (int i = 0; i < index; i++) {
+                        curr = curr.Next;
+                    }
+                } else {
+                    curr = _tail;
+                    for (int i = 0; i < _size - index - 1; i++) {
+                        curr = curr.Prev;
+                    }
+                }
+                curr.Item = value;
+            }
         }
 
         //Adds the given item object to the end of this list, adjusting the capacity of the list if needed. O(1)
@@ -185,6 +222,13 @@ namespace DataStructLib.LinkedNodeStruct {
         public void RemoveSection(int start, int count) {
             if (start < 0 || start >= _size) throw new ArgumentOutOfRangeException("start", "The start index is out of range");
             if (count < 0 || count > _size - start) throw new ArgumentOutOfRangeException("count", "The count is out of range");
+
+            if (start == 0 && count == _size) { //fully empty the list
+                _head = null;
+                _tail = null;
+                _size = 0;
+                return;
+            }
 
             if (start == 0) { //Base case remove from front
                 DoublyLinkedNode newHead = _head;

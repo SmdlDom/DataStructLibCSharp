@@ -3,10 +3,13 @@ using System;
 
 namespace DataStructLib.StructInterface {
     public interface ListInterface {
+
+        Object this[int index] { get; set; }
+
+        int Size { get; }
+
         //Adds the given item object to the end of this list, adjusting the capacity of the list if needed.
         void Append(Object item);
-
-        //TODO implement a variant of Append that let you append any list implementing ListInterface.
 
         //Determine if the list contains the given item.
         bool Contains(Object item);

@@ -30,7 +30,6 @@ namespace DataStructLib.ArrayBackedStruct {
             }
         }
 
-        
         //Adds the given item to the end of this list, adjusting the capacity of the list if needed. O(1) amortized
         public void Append(Object item) { 
             if (_size == _items.Length) EnsureCap(_size + 1);
