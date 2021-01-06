@@ -124,6 +124,8 @@ namespace DataStructLib.LinkedNodeStruct.Tests {
             Assert.AreEqual("{3, 2, 1, 3, 2, 1}", list.ToString());
             list.ReverseSection(1, 4);
             Assert.AreEqual("{3, 2, 3, 1, 2, 1}", list.ToString());
+            list.ReverseSection(0, 2);
+            Assert.AreEqual("{2, 3, 3, 1, 2, 1}", list.ToString());
         }
     }
 }

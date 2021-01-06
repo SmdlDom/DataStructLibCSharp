@@ -26,8 +26,6 @@ namespace DataStructLib.StructInterface {
         //Insert an item into this list at a given index.
         void Insert(Object item, int index);
 
-        //TODO implement a variant of Insert that insert any list implementing Iterator. Need to implement an Iterator
-
         //Return the index of the last occurrence of the given item.
         int LastIndexOf(Object item);
 

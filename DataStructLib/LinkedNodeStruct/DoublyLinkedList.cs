@@ -15,37 +15,46 @@ namespace DataStructLib.LinkedNodeStruct {
         //TODO make a reach index function
         public object this[int index] {
             get { //O(n)
-                if (index < 0 || index >= _size) throw new ArgumentOutOfRangeException("index", "The index is out of range");
-
-                DoublyLinkedNode curr = _head;
-                if (index <= _size / 2) {
-                    for (int i = 0; i < index; i++) {
-                        curr = curr.Next;
-                    }
-                } else {
-                    curr = _tail;
-                    for (int i = 0; i < _size - index - 1; i++) {
-                        curr = curr.Prev;
-                    }
-                }
-                return curr.Item;
+                return GetNodeAt(index).Item;
             }
             set { //O(n)
-                if (index < 0 || index >= _size) throw new ArgumentOutOfRangeException("index", "The index is out of range");
-
-                DoublyLinkedNode curr = _head;
-                if (index <= _size / 2) {
-                    for (int i = 0; i < index; i++) {
-                        curr = curr.Next;
-                    }
-                } else {
-                    curr = _tail;
-                    for (int i = 0; i < _size - index - 1; i++) {
-                        curr = curr.Prev;
-                    }
-                }
-                curr.Item = value;
+                GetNodeAt(index).Item = value;
             }
+        }
+
+        //Utility function to get node at the given index. O(n)
+        private DoublyLinkedNode GetNodeAt(int index) {
+            if (index < 0 || index >= _size) throw new ArgumentOutOfRangeException("index", "The index is out of range");
+
+            DoublyLinkedNode curr = _head;
+            if (index <= _size / 2) {
+                for (int i = 0; i < index; i++) {
+                    curr = curr.Next;
+                }
+            } else {
+                curr = _tail;
+                for (int i = 0; i < _size - index - 1; i++) {
+                    curr = curr.Prev;
+                }
+            }
+            return curr;
+        }
+
+        //Utility function to get the node at the looked index given a certain node as a starting point.
+        private DoublyLinkedNode GetNodeAtFrom(int index, DoublyLinkedNode start, int startIndex) {
+            //Since this function is strictly use as an utility within this class, it is asserted that the parameters received are always within a proper domain.
+            if (index <= Math.Abs(index - startIndex) || _size - index < Math.Abs(index - startIndex)) return GetNodeAt(index);
+            DoublyLinkedNode curr = start;
+            if (index - startIndex > 0) { //look moving forward
+                for (int i = 0; i <= index - startIndex; i++) {
+                    curr = curr.Next;
+                }
+            } else if (index - startIndex < 0) {//look moving backward
+                for (int i = 0; i <= startIndex - index; i++) {
+                    curr = curr.Prev;
+                }
+            }
+            return curr;
         }
 
         //Adds the given item object to the end of this list, adjusting the capacity of the list if needed. O(1)
@@ -92,14 +101,10 @@ namespace DataStructLib.LinkedNodeStruct {
             if (start < 0 || start >= _size) throw new ArgumentOutOfRangeException("start", "The start index is out of range");
             if (count < 0 || start > _size - count) throw new ArgumentOutOfRangeException("count", "The count is out of range");
 
-
+            
             if (start <= _size - count - start) { //Start search from the front
-                DoublyLinkedNode curr = _head;
-                for (int i = 0; i < start; i++) {
-                    curr = curr.Next;
-                }
-
-                int res = start; 
+                DoublyLinkedNode curr = GetNodeAt(start);
+                int res = start;
                 while (res < count + start) {
                     if (curr.Item.Equals(item)) return res;
                     curr = curr.Next;
@@ -107,16 +112,12 @@ namespace DataStructLib.LinkedNodeStruct {
                 }
                 return -1;
             } else { //Start search from the back
-                DoublyLinkedNode curr = _tail;
-                int startBack = _size - count - start;
-                for (int i = 0; i < startBack; i++) {
-                    curr = curr.Prev;
-                }
-
-                int ptr = startBack;
+                DoublyLinkedNode curr = GetNodeAt(start + count - 1);
+                
+                int ptr = 0;
                 int res = -1;
-                while (ptr < count + startBack) {
-                    if (curr.Item.Equals(item)) res = _size - 1 - ptr;
+                while (ptr < count ) {
+                    if (curr.Item.Equals(item)) res = start + count - ptr -1;
                     curr = curr.Prev;
                     ptr++;
                 }
@@ -141,17 +142,13 @@ namespace DataStructLib.LinkedNodeStruct {
                 _tail = newNode;
                 return;
             } else if (index  < _size / 2) { //reach index from the front
-                DoublyLinkedNode prev = _head;
-                for (int i = 0; i < index - 1; i++) 
-                    prev = prev.Next;
+                DoublyLinkedNode prev = GetNodeAt(index - 1);
                 newNode.Next = prev.Next;
                 prev.Next.Prev = newNode;
                 newNode.Prev = prev;
                 prev.Next = newNode;
             } else { //Reach index from the back
-                DoublyLinkedNode next = _tail;
-                for (int i = 0; i < _size - 1 - index - 1; i++) 
-                    next = next.Prev;
+                DoublyLinkedNode next = GetNodeAt(index + 1);
                 newNode.Prev = next.Prev;
                 next.Prev.Next = newNode;
                 newNode.Next = next;
@@ -179,23 +176,15 @@ namespace DataStructLib.LinkedNodeStruct {
             if (count < 0 || count > _size - start) throw new ArgumentOutOfRangeException("count", "The count is out of range");
 
             if (start <= _size - count - start) { //Start search from the front    
-                DoublyLinkedNode curr = _head;
-                for (int i = 0; i < start; i++)
-                    curr = curr.Next;
-
+                DoublyLinkedNode curr = GetNodeAt(start);
                 int res = -1;
                 for (int i = 0; i < count; i++) {
-                    if (curr.Item.Equals(item)) res = i;
+                    if (curr.Item.Equals(item)) res = i + start;
                     curr = curr.Next;
                 }
-
-                if (res == -1) return res;
-                return res + start;
+                return res;
             } else { //Start search from the back
-                DoublyLinkedNode curr = _tail;
-                for (int i = 0; i < _size - start - count; i++)
-                    curr = curr.Prev;
-
+                DoublyLinkedNode curr = GetNodeAt(start + count - 1);
                 for (int i = 0; i < count; i++) {
                     if (curr.Item.Equals(item)) return start + count - 1 - i;
                     curr = curr.Prev;
@@ -231,38 +220,21 @@ namespace DataStructLib.LinkedNodeStruct {
             }
 
             if (start == 0) { //Base case remove from front
-                DoublyLinkedNode newHead = _head;
-                for (int i = 0; i < count; i++) 
-                    newHead = newHead.Next;
-                
+                DoublyLinkedNode newHead = GetNodeAt(count);
                 newHead.Prev = null;
                 _head = newHead;
             } else if (start + count == _size) { //Base case remove from back,
-                DoublyLinkedNode newTail = _tail;
-                for (int i = 0; i < count; i++) 
-                    newTail = newTail.Prev;
- 
+                DoublyLinkedNode newTail = GetNodeAt(start -1);
                 newTail.Next = null;
                 _tail = newTail;
             } else if (start <= _size - count - start) { //reach the index from the front
-                DoublyLinkedNode prev = _head;
-                for (int i = 0; i < start - 1; i++)
-                    prev = prev.Next;
-                DoublyLinkedNode next = prev.Next;
-                for (int i = 0; i < count; i++) 
-                    next = next.Next;
-
+                DoublyLinkedNode prev = GetNodeAt(start -1);
+                DoublyLinkedNode next = GetNodeAtFrom(start + count, prev, start - 1);
                 prev.Next = next;
                 next.Prev = prev;
             } else { // reach the index from the back
-                DoublyLinkedNode next = _tail;
-                for (int i = 0; i < _size - 1 - start - count -1; i ++)
-                    next = next.Prev;
-           
-                DoublyLinkedNode prev = next.Prev;
-                for (int i = 0; i < count; i ++) 
-                    prev = prev.Prev;
-
+                DoublyLinkedNode next = GetNodeAt(start + count);
+                DoublyLinkedNode prev = GetNodeAtFrom(start - 1, next, start + count);
                 prev.Next = next;
                 next.Prev = prev;
             }
@@ -284,25 +256,15 @@ namespace DataStructLib.LinkedNodeStruct {
             DoublyLinkedNode begSegEnd = null;
             DoublyLinkedNode endSegBeg = null;
             if (start <= _size - start) { //Find begSegEnd from the beginning
-                if (start != 0) begSegEnd = _head;
-                for (int i = 0; i < start - 1; i++) 
-                    begSegEnd = begSegEnd.Next;
-                if (count < _size - start - count) { //Find endSegBeg from continuing from begSegEnd
-                    endSegBeg = begSegEnd.Next;
-                    for (int i = 0; i < count; i++) 
-                        endSegBeg = endSegBeg.Next;
-                } else { //Find endSegBeg from the ending
-                    if (_size - start - count != 0) endSegBeg = _tail;
-                    for (int i = 0; i < _size - start - count - 1; i++)
-                        endSegBeg = endSegBeg.Prev;
+                if (start != 0) begSegEnd = GetNodeAt(start -1);
+                if (count < _size - start - count && endSegBeg != null) { //Find endSegBeg from continuing from begSegEnd
+                    endSegBeg = GetNodeAtFrom(start + count, begSegEnd, start -1); 
+                } else { //Find endSegBeg
+                    if (_size - start - count != 0) endSegBeg = GetNodeAt(start + count);
                 }
             } else { // Find endSegBeg from the ending then continue to find begSegEnd
-                if (_size - start - count != 0) endSegBeg = _tail;
-                for (int i = 0; i < _size - count - start - 1; i++)
-                    endSegBeg = endSegBeg.Prev;
-                begSegEnd = endSegBeg;
-                for (int i = 0; i < count; i++)
-                    begSegEnd = begSegEnd.Prev;
+                if (_size - start - count != 0) endSegBeg = GetNodeAt(start + count);
+                begSegEnd = GetNodeAtFrom(start - 1, endSegBeg, start + count); 
             }
 
             DoublyLinkedNode curr = _head;
