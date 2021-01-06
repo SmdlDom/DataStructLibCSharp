@@ -13,23 +13,38 @@ namespace DataStructLib.LinkedNodeStruct {
 
         public object this[int index] {
             get { //O(n)
-                if (index < 0 || index >= _size) throw new ArgumentOutOfRangeException("index", "The index is out of range");
-
-                SinglyLinkedNode curr = _head;
-                for (int i = 0; i < index; i++) {
-                    curr = curr.Next;
-                }
-                return curr.Item;
+                return GetNodeAt(index).Item;
             }
             set { //O(n)
-                if (index < 0 || index >= _size) throw new ArgumentOutOfRangeException("index", "The index is out of range");
-
-                SinglyLinkedNode curr = _head;
-                for (int i = 0; i < index; i++) {
-                    curr = curr.Next;
-                }
-                curr.Item = value;
+                GetNodeAt(index).Item = value;
             }
+        }
+
+        //Utility function to get node at the given index. O(n)
+        private SinglyLinkedNode GetNodeAt(int index) {
+            if (index < 0 || index > _size) throw new ArgumentOutOfRangeException("index", "The index is out of range");
+
+            if (index == _size) return null;
+
+            SinglyLinkedNode curr = _head;
+            for (int i = 0; i < index; i++) {
+                curr = curr.Next;
+            }
+
+            return curr;
+        }
+
+        //Utility function to get the node at the looked index given a certain node as a starting point. O(n)
+        private SinglyLinkedNode GetNodeAtFrom(int index, SinglyLinkedNode start, int startIndex) {
+            //Since this function is strictly use as an utility within this class, it is asserted that the parameters received are always within a proper domain.
+            if (index < startIndex) throw new ArgumentOutOfRangeException("index", "The index is smaller then the starting index");
+            if (index <= Math.Abs(index - startIndex)) return GetNodeAt(index);
+            SinglyLinkedNode curr = start;
+            for (int i = 0; i < index - startIndex; i++) {
+                curr = curr.Next;
+            }
+
+            return curr;
         }
 
         //Adds the given item object to the end of this list, adjusting the capacity of the list if needed. O(n)
@@ -77,10 +92,7 @@ namespace DataStructLib.LinkedNodeStruct {
             if (start < 0 || start >= _size) throw new ArgumentOutOfRangeException("start", "The start index is out of range");
             if (count < 0 || start > _size - count) throw new ArgumentOutOfRangeException("count", "The count is out of range");
 
-            SinglyLinkedNode curr = _head;
-            for (int i = 0; i < start; i++) {
-                curr = curr.Next;
-            }
+            SinglyLinkedNode curr = GetNodeAt(start);
 
             int res = start;
             while ( res < count + start) {
@@ -103,9 +115,7 @@ namespace DataStructLib.LinkedNodeStruct {
                 return;
             }
             
-            SinglyLinkedNode prev = _head;
-            for (int i = 0; i < index - 1; i++) 
-                prev = prev.Next;
+            SinglyLinkedNode prev = GetNodeAt(index - 1);
             newNode.Next = prev.Next;
             prev.Next = newNode;
         }
@@ -129,9 +139,7 @@ namespace DataStructLib.LinkedNodeStruct {
             if (start < 0 || start >= _size) throw new ArgumentOutOfRangeException("start", "The start index is out of range");
             if (count < 0 || count > _size - start) throw new ArgumentOutOfRangeException("count", " The count is out of range");
 
-            SinglyLinkedNode curr = _head;
-            for (int i = 0; i < start; i++)
-                curr = curr.Next;
+            SinglyLinkedNode curr = GetNodeAt(start);
 
             int res = -1;
             for (int i = 0; i < count; i++) {
@@ -163,23 +171,21 @@ namespace DataStructLib.LinkedNodeStruct {
             if (start < 0 || start >= _size) throw new ArgumentOutOfRangeException("start", "The start index is out of range");
             if (count < 0 || count > _size - start) throw new ArgumentOutOfRangeException("count", "The count is out of range");
 
-            _size -= count;
+            if(start == 0 && count == _size) {
+                _head = null;
+                _size = 0;
+                return;
+            }
+
             if (start == 0) { //Base case remove from front
-                SinglyLinkedNode newHead = _head;
-                for (int i = 0; i < count; i++) {
-                    newHead = newHead.Next;
-                }
+                SinglyLinkedNode newHead = GetNodeAt(count);
                 _head = newHead;
             } else {
-                SinglyLinkedNode prev = _head;
-                for (int i = 0; i < start - 1; i++)
-                    prev = prev.Next;
-                SinglyLinkedNode next = prev.Next;
-                for (int i = 0; i < count; i++)
-                    next = next.Next;
-
+                SinglyLinkedNode prev = GetNodeAt(start - 1);
+                SinglyLinkedNode next = GetNodeAtFrom(start + count, prev, start - 1);
                 prev.Next = next;
             }
+            _size -= count;
         }
 
         //Reverse the list. O(n)
@@ -193,23 +199,16 @@ namespace DataStructLib.LinkedNodeStruct {
             if (count < 0 || count > _size + start) throw new ArgumentOutOfRangeException("count", "The count is out of range");
 
             SinglyLinkedNode begSegEnd = null;
-            if (start != 0) {
-                begSegEnd = _head;
-                for (int i = 0; i < start - 1; i++) {
-                    begSegEnd = begSegEnd.Next;
-                }
-            }
+            if (start != 0) begSegEnd = GetNodeAt(start - 1);
+
 
             SinglyLinkedNode endSegBeg;
             if (begSegEnd == null) {
-                endSegBeg = _head;
+                endSegBeg = GetNodeAt(count);
             } else {
-                endSegBeg = begSegEnd.Next;
+                endSegBeg = GetNodeAtFrom(start + count, begSegEnd, start - 1);
             }
 
-            for (int i = 0; i < count; i++) {
-                endSegBeg = endSegBeg.Next;
-            }
 
             SinglyLinkedNode curr = _head;
             if (begSegEnd != null) curr = begSegEnd.Next;

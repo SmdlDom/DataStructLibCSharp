@@ -12,7 +12,6 @@ namespace DataStructLib.LinkedNodeStruct {
             _size = 0;
         }
 
-        //TODO make a reach index function
         public object this[int index] {
             get { //O(n)
                 return GetNodeAt(index).Item;
@@ -24,7 +23,9 @@ namespace DataStructLib.LinkedNodeStruct {
 
         //Utility function to get node at the given index. O(n)
         private DoublyLinkedNode GetNodeAt(int index) {
-            if (index < 0 || index >= _size) throw new ArgumentOutOfRangeException("index", "The index is out of range");
+            if (index < -1 || index > _size) throw new ArgumentOutOfRangeException("index", "The index is out of range");
+
+            if (index == -1 || index == _size) return null;
 
             DoublyLinkedNode curr = _head;
             if (index <= _size / 2) {
@@ -40,7 +41,7 @@ namespace DataStructLib.LinkedNodeStruct {
             return curr;
         }
 
-        //Utility function to get the node at the looked index given a certain node as a starting point.
+        //Utility function to get the node at the looked index given a certain node as a starting point. O(n)
         private DoublyLinkedNode GetNodeAtFrom(int index, DoublyLinkedNode start, int startIndex) {
             //Since this function is strictly use as an utility within this class, it is asserted that the parameters received are always within a proper domain.
             if (index <= Math.Abs(index - startIndex) || _size - index < Math.Abs(index - startIndex)) return GetNodeAt(index);
