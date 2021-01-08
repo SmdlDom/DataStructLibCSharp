@@ -49,7 +49,7 @@ namespace DataStructLib.ArrayBackedStruct.Abstract {
         }
 
         //Ensure that the capacity of this list is at least the given minimum value. O(n)
-        protected void EnsureCap(int min) {
+        protected virtual void EnsureCap(int min) {
             if (_items.Length < min) {
                 int newCap = _items.Length < _defaultCap ? _defaultCap : _items.Length * 2;
                 if ((uint)newCap > 0X7FEFFFFF) newCap = 0X7FEFFFFF;

@@ -19,7 +19,7 @@ namespace DataStructLib.MapStruct {
         }
 
         //Set the item in the structure denoted by this key at a particular value. If no item in the structure match the key insert a new item. Return a boolean determining if a new item was inserted to the structure. O(n)
-        public bool SetValue(int key, Object value) {
+        public virtual bool SetValue(int key, Object value) {
             int index = -1;
             for (int i = 0; i < _size; i++) {
                 if (_items[i].Key == key) {
@@ -28,6 +28,7 @@ namespace DataStructLib.MapStruct {
                 }
             }
             if (index == -1) {
+                if (_size == _items.Length) EnsureCap(_size + 1);
                 _items[_size++] = new Item(key, value);
                 return true;
             } else {
@@ -44,6 +45,7 @@ namespace DataStructLib.MapStruct {
                         _items[j] = _items[j + 1];
                     }
                     _size--;
+                    ReduceCap();
                     return true;
                 }
             }

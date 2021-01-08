@@ -54,6 +54,23 @@ namespace DataStructLib.MapStruct.Abstract {
 
         protected new Item[] _items;
 
+        //Ensure that the capacity of this list is at least the given minimum value. O(n)
+        protected sealed override void EnsureCap(int min) {
+            if (_items.Length < min) {
+                int newCap = _items.Length < _defaultCap ? _defaultCap : _items.Length * 2;
+                if ((uint)newCap > 0X7FEFFFFF) newCap = 0X7FEFFFFF;
+                if (newCap < min) newCap = min;
+                Cap = newCap;
+            }
+        }
+
+        //Halve the capacity of this list if it's size is smaller then a forth of the current capacity. O(n)
+        protected sealed override void ReduceCap() {
+            if (_items.Length != _defaultCap && _size < _items.Length / 4) {
+                Cap = _items.Length / 4 < _defaultCap ? _defaultCap : _items.Length / 2;
+            }
+        }
+
         //Convert this array map to an array. O(n)
         protected new Item[] ToArray() {
             Item[] copy = new Item[_size];
