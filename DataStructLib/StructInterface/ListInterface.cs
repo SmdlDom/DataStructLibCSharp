@@ -47,9 +47,5 @@ namespace DataStructLib.StructInterface {
         //Reverse the list.
         void Reverse();
 
-        //Reverse the items of the list trough the given range.
-        void ReverseSection(int start, int count);
-
-        //TODO implement a sorting algorithm
     }
 }

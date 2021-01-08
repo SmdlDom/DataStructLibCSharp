@@ -81,7 +81,7 @@ namespace DataStructLib.ArrayBackedStruct.Abstract {
         }
 
         //Return a string representation. O(n)
-        public sealed override string ToString() {
+        public override string ToString() {
             return String.Concat("{", String.Concat(String.Join(", ", ToArray()), "}"));
         }
 
