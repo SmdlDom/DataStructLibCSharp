@@ -72,7 +72,7 @@ namespace DataStructLib.ArrayBackedStruct.Abstract {
         }
 
         //Convert this ArrayBacked Structure to an array O(n)
-        protected virtual Object[] ToArray() {
+        public virtual Object[] ToArray() {
             Object[] copy = new Object[_size];
             for (int i = 0; i < _size; i++) {
                 copy[i] = _items[i];

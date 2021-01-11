@@ -39,7 +39,7 @@ namespace DataStructLib.ArrayBackedStruct.Abstract {
         }
 
         //Convert this circular array backed data structure to an array. O(n)
-        protected sealed override Object[] ToArray() {
+        public sealed override Object[] ToArray() {
             Object[] copy = new Object[_size];
             for (int i = _ptr; i < _ptr + _size; i++) {
                 copy[i - _ptr] = _items[i % _items.Length];
